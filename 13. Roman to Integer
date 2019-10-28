@@ -1,0 +1,44 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+static int romanmapping(char roman)
+{
+    switch (roman)
+    {
+        case 'I': return 1;
+        case 'V': return 5;
+        case 'X': return 10;
+        case 'L': return 50;
+        case 'C': return 100;
+        case 'D': return 500;
+        case 'M': return 1000;
+        default: return 0;
+    }
+}
+
+int romanToInt(char * s){
+    int result = 0;
+    int lastvalue = INT_MAX;
+    
+    for(char ch = *s; ch != 0; ch = *(++s))
+    {
+        int value = romanmapping(ch);
+        
+        if (value == 0)
+            return 0;
+        else if (value > lastvalue)
+        {
+            result += (value - 2*lastvalue);
+        }
+        else
+        {
+            result += value;
+        }
+        lastvalue = value;
+    }
+    
+    return result;
+}
+
